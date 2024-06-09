@@ -13,18 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-class Task
-{
-    public function __construct(
-        public int $id,
-        public string $title,
-        public string $description,
-        public ?string $long_description,
-        public bool $completed,
-        public string $created_at,
-        public string $updated_at
-        ) {
-        }
+    class Task
+    {
+        public function __construct(
+            public int $id,
+            public string $title,
+            public string $description,
+            public ?string $long_description,
+            public bool $completed,
+            public string $created_at,
+            public string $updated_at
+            ) {
+            }
     }
 
     $tasks = [
@@ -66,25 +66,20 @@ class Task
         ),
     ];
 
-    Route::get('/', function () use ($tasks) {
+    Route::get('/', function (){
+        return redirect()->route('tasks.index');
+    });
+
+    Route::get('/tasks', function () use ($tasks) {
         return view('index', [
             'tasks' => $tasks,
         ]);
-    });
+    })->name('tasks.index');
 
-    Route::get('/hello', function () {
-        return 'Hello';
-    });
-
-    Route::get('/hallo', function () {
-        return redirect('hello');
-    });
-
-    Route::get('/greet/{name}', function ($name) {
-        return 'Hello '. $name;
-    });
+    Route::get('/tasks/{id}', function ($id) {
+        return 'One single task;';
+    })->name('tasks.show');
 
     Route::fallback(function () {
         return 'Still got somewhere!';
     });
-
