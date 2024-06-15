@@ -70,7 +70,7 @@ Route::put('/tasks/{id}', function ($id, Request $request) {
 
    return redirect()->route('tasks.show', ['id'=>$task->id])->with('success','Task updated successfully!');
 
-})->name('tasks.update');
+})->name('tasks.updated');
 
 
 Route::fallback(function () {
