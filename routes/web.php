@@ -29,7 +29,6 @@ Route::get('/tasks', function () {
 })->name('tasks.index');
 
 Route::get('/tasks/{id}', function ($id) {
-
    return  view('show',['task' => Task::findOrFail ($id)]);
 })->name('tasks.show');
 
@@ -49,7 +48,7 @@ Route::post('/tasks', function (Request $request) {
 
    $task->save();
 
-   return redirect()->route('tasks.show', ['id'=>$task->id])->with('success','New task added');
+   return redirect()->route('tasks.show', ['id'=>$task->id])->with('success','Task created successfully!');
 
 })->name('tasks.store');
 
