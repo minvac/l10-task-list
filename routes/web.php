@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,17 +20,39 @@ Route::get('/', function () {
    return redirect()->route('tasks.index');
 });
 
+Route::view('/tasks/create', 'create')->name('tasks.create');
+
 Route::get('/tasks', function () {
    return view('index', [
-      'tasks' => \App\Models\Task::all(),
+      'tasks' => Task::latest()->where('completed',true)->get(),
    ]);
 })->name('tasks.index');
 
 Route::get('/tasks/{id}', function ($id) {
 
-   return  view('show',['task' => \App\Models\Task::findOrFail ($id)]);
-   
+   return  view('show',['task' => Task::findOrFail ($id)]);
 })->name('tasks.show');
+
+Route::post('/tasks', function (Request $request) {
+
+   $data = $request->validate([
+      'title' =>  'required|max:255',
+      'description' =>  'required',
+      'long_description' =>  'required',
+   ]);
+
+   $task = new Task;
+
+   $task->title = $data['title'];
+   $task->description = $data['description'];   
+   $task->long_description = $data['long_description'];   
+
+   $task->save();
+
+   return redirect()->route('tasks.show', ['id'=>$task->id])->with('success','New task added');
+
+})->name('tasks.store');
+
 
 Route::fallback(function () {
    return 'Still got somewhere!';
