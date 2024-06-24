@@ -64,3 +64,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Commands
+composer create-project --prefer-dist laravel/laravel l10-task-list "10.*"
+php artisan route:list | grep tasks
+php artisan optimize && php artisan serve
+
+php artisan make:model Task -m
+php artisan migrate:rollback
+php artisan db:seed
+php artisan make:factory TaskFactory --model=Task
+php artisan migrate:refresh --seed
+
+php artisan make:request TaskRequest 
+
+php artisan optimize && php artisan serve                                                             
