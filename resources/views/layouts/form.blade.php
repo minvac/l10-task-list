@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', isset($task) ? 'Edit Task': 'Aadd Task')
+@section('title', isset($task) ? 'Edit Task': 'Add Task')
 
 @section('styles')
 <style>
